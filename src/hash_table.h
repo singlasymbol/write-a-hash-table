@@ -1,10 +1,10 @@
 typedef struct {
 	char* key;
-	char* item;
-} ht_item;
+	char* val;
+} hash_table_item;
 
 typedef struct {
 	int count;
 	int size;
-	ht_item ** items;
-} ht_hash_table;
+	hash_table_item ** items;
+} hash_table;

@@ -1,6 +1,6 @@
 #include "hash_table.h"
 
 int main() {
-    ht_hash_table* ht = ht_new();
-    ht_del_hash_table(ht);
+    hash_table* ht = new_hash_table();
+    delete_hash_table_item(ht);
 }
