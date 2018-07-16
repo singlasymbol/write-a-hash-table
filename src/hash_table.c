@@ -90,5 +90,33 @@ static int getHash( const char* s, const int hashTableLength, const int attempt)
 	return (hash_a + (attempt * (hash_b + 1))) % hashTableLength; //adding 1 + hash_b so that it is never zero.
 }
 
+void insertInHashTable(hash_table* ht, const char* key, const char* value) {
+	int attempt = 0;
+	hash_table_item* item = hash_table_new_item(key, value);
+	int index = getHash(key, ht -> size , attempt++);
+	hash_table_item * currItem = ht -> items[index];
 
+	while(currItem != NULL) {
+		int index = getHash(key, ht -> size , attempt++);
+		hash_table_item * currItem = ht -> items[index];
+	}
 
+	ht -> items[index] = currItem;
+	ht -> count++;
+}
+
+void search(const char * key, hash_table * ht) {
+	int attempt = 0;
+	int index = getHash(key, ht -> size, attempt);
+	hash_table_item * item = ht -> items[index];
+
+	while(item != null) {
+		if(strcmp(item -> key, key ) == 0) {
+			return item -> value;
+		}
+		index = getHash(key, ht -> size, attempt++);
+		item = ht -> items[index];
+	}
+
+	return NULL;
+}
