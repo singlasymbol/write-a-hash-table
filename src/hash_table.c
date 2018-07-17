@@ -97,10 +97,16 @@ void insertInHashTable(hash_table* ht, const char* key, const char* value) {
 	hash_table_item * currItem = ht -> items[index];
 
 	while(currItem != NULL) {
-		int index = getHash(key, ht -> size , attempt++);
-		hash_table_item * currItem = ht -> items[index];
+		if(currItem != HT_DELETED_ITEM) {
+			if(strcmp(currItem -> key, key) == 0) {
+				delete_hash_table_item(currItem);
+				ht -> items[index] = currItem;
+				return;
+			}
+			int index = getHash(key, ht -> size , attempt++);
+			hash_table_item * currItem = ht -> items[index];
+		}
 	}
-
 	ht -> items[index] = currItem;
 	ht -> size++;
 }
