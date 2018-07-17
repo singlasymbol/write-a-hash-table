@@ -102,15 +102,15 @@ void insertInHashTable(hash_table* ht, const char* key, const char* value) {
 	}
 
 	ht -> items[index] = currItem;
-	ht -> count++;
+	ht -> size++;
 }
 
 void search(const char * key, hash_table * ht) {
 	int attempt = 0;
-	int index = getHash(key, ht -> size, attempt);
+	int index = getHash(key, ht -> size, attempt++);
 	hash_table_item * item = ht -> items[index];
 
-	while(item != null) {
+	while(item != NULL) {
 		if(strcmp(item -> key, key ) == 0) {
 			return item -> value;
 		}
@@ -120,3 +120,24 @@ void search(const char * key, hash_table * ht) {
 
 	return NULL;
 }
+
+static hash_table_item HT_DELETED_ITEM = {NULL, NULL}
+
+void delete_item(hash_table* ht, const char * key) {
+	int attempt = 0;
+	int index = getHash(key, ht -> item, attempt++);
+	hash_table_item * item = ht -> items[index];
+
+	while(item != NULL) {
+		if(item != &HT_DELETED_ITEM) {
+			if(strcmp(item -> key, key) == 0) {
+				delete_hash_table_item(item);
+				ht -> items[index] = &HT_DELETED_ITEM
+			}
+		}
+		int index = getHash(key, ht -> item, attempt++);
+		hash_table_item * item = ht -> items[index];
+	}
+	ht -> size++;
+}
+
